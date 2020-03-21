@@ -19,10 +19,21 @@ hist(as.numeric(first_digit), include.lowest = TRUE, main = "Frecuencia como pri
      col = rgb(0, 1, 0, 0.3), xlab = "Primer dígito", ylab = "Frecuencia", xaxt = 'n')
 axis(side=1, at=seq(0.75,8.75, 1), labels=seq(1,9,1))
 
+# Si normalizamos el área
+hist(as.numeric(first_digit), include.lowest = TRUE, freq = FALSE, main = "Frecuencia como primeros dígitos (Población)", 
+     col = rgb(0, 1, 0, 0.3), xlab = "Primer dígito", ylab = "Densidad de probabilidad", xaxt = 'n')
+axis(side=1, at=seq(0.75,8.75, 1), labels=seq(1,9,1))
+par(new=TRUE)
+# Ecuacion Ley de Benford
+digitos <- c(1:9)
+probabilidades <- log10(digitos + 1) - log10(digitos)
+
+plot(digitos, probabilidades, type = "c", xaxt = 'n', yaxt = 'n', xlab = " ", ylab = " ")
+
 ################### POPULATION SPAIN CITIES #####################
 population <- as.character(city_data$pop[city_data$country.etc == "Spain"])
 first_digit <- stringr::str_extract(population, "\\d{1}")
-hist(as.numeric(first_digit), include.lowest = TRUE, main = "Frecuencia como primeros dígitos (Población ESP)", 
+hist(as.numeric(first_digit), include.lowest = TRUE, main = "Probabilidad de aparición como primer dígito (Población ESP)", 
      col = rgb(0, 1, 0, 0.3), xlab = "Primer dígito", ylab = "Frecuencia", xaxt = 'n')
 axis(side=1, at=seq(0.75,8.75, 1), labels=seq(1,9,1))
 # La distribución no es tan clara porque el número de ciudades consideradas es reducido
@@ -40,3 +51,9 @@ first_digit <- stringr::str_extract(lat, "\\d{1}")
 hist(as.numeric(first_digit), include.lowest = TRUE, main = "Frecuencia como primeros dígitos (Latitud)", 
      col = rgb(0, 1, 0, 0.3), xlab = "Primer dígito", ylab = "Frecuencia", xaxt = 'n')
 axis(side=1, at=seq(0.75,8.75, 1), labels=seq(1,9,1))
+
+############## ECUACIÓN ##############################################
+digitos <- c(1:9)
+probabilidades <- log10(digitos + 1) - log10(digitos)
+
+plot(digitos, probabilidades, type = "c")
